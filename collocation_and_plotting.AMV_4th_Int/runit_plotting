@@ -1,0 +1,17 @@
+#!/bin/bash
+
+####### Cloudy AMVs
+#./MAINSCRIPT_for__PlotChecks.bash .drv_BRZ_Cloud__QC.dset1_Aeolus_MieCloud_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_EUM_Cloud__QC.dset1_Aeolus_MieCloud_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_JMA_Cloud__QC.dset1_Aeolus_MieCloud_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_KMA_Cloud__QC.dset1_Aeolus_MieCloud_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_NOA_Cloud__QC.dset1_Aeolus_MieCloud_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_NWC_Cloud__QC.dset1_Aeolus_MieCloud_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+
+####### Clear AMVs
+#./MAINSCRIPT_for__PlotChecks.bash .drv_BRZ_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_EUM_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_KMA_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_NOA_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+#./MAINSCRIPT_for__PlotChecks.bash .drv_NWC_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+

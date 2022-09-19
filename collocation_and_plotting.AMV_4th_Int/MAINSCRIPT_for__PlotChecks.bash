@@ -61,12 +61,11 @@ ddarr=(20)
 #       !!! NOTE: Always end path names with a slash "/"
 
 	# Set home path 'dir_home': This is the current working directory (i.e., where this script is located)
-dir_home=/home/klukens/s4-cardinal/scripts/run/Wind_Collocation/collocation_and_plotting.AMV_4th_Int/
-#dir_home=/data/users/klukens/collocation/collocation_and_plotting/
+dir_home=/home/sreiner/Wind_Collocation_Software/collocation_and_plotting.AMV_4th_Int/
 echo 'WORKING DIRECTORY = '${dir_home}
 
 	# Set input path 'dir_in': This is where the collocation index files are located
-dir_in=/data/users/klukens/collocation/AMV_4th_intercomparison/
+dir_in=/data/users/klukens/for_CIMSS/Wind_Collocation_Software/index_files/
 echo 'INPUT DIRECTORY = '${dir_in}
 
 	# Set index file suffix
@@ -84,11 +83,12 @@ echo 'INPUT DIRECTORY = '${dir_in}
 #file_in='.drv_BRZ_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4'
 #file_in='.drv_EUM_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4'
 #file_in='.drv_KMA_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4'
-file_in='.drv_NOA_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4'
+#file_in='.drv_NOA_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4'
 #file_in='.drv_NWC_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4'
 
+file_in=$1
 	# Set output path 'dir_out': This is where the plots are saved
-dir_out=/data/users/klukens/collocation/longterm_anl/output_plots/
+dir_out=/home/sreiner/Wind_Collocation_Software/output_plots/
 echo 'OUTPUT DIRECTORY = '${dir_out}
 
         # Set path 'archive_parent': This is where the archive home directory is located
@@ -112,7 +112,7 @@ avgthin_choice=-1
 #----------------------------------------------
 # Set HPC account, partition, and runtime limit for jobs
 
-account="star"
+account="ssec"
 
 partition="s4"
 timelimit="06:00:00"
