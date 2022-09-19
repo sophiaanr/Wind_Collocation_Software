@@ -698,7 +698,7 @@ central_lat = 0
 		# plot filename
 outname = output_path+"MAP_Rotate.Match_Locations_centerlat"+str(central_lat)+"."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str
 
-map_locations_ortho_rotate(output_path,outname,Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lat)
+#map_locations_ortho_rotate(output_path,outname,Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lat)
 
 del outname
 
