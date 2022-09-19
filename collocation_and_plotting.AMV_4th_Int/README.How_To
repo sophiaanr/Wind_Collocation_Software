@@ -1,0 +1,118 @@
+############################################################
+# README File for Using Collocation Software and Tools
+#
+# Contributors/Developers of the software and tools:
+# 	Katherine E. Lukens		NOAA/NESDIS/STAR, UMD/ESSIC/CISESS
+# 	Kevin Garrett			NOAA/NESDIS/STAR
+# 	Kayo Ide			UMD
+# 	David Santek			UW-Madison/CIMSS
+# 	Brett Hoover			IMSG at NOAA/EMC
+# 	Ross N. Hoffman			NOAA/NESDIS/STAR, UMD/ESSIC/CISESS
+#
+# Last updated: 2022-09-12
+#
+# Please contact Katherine Lukens at katherine.lukens@noaa.gov with any questions.
+#
+############################################################
+
+NOTE: If you are using S4, you must run the software and tools on s4-submit.
+
+-------------------------------------------------------------------------------------------
+- How to collocate data and generate index files for plotting
+-------------------------------------------------------------------------------------------
+
+1. The main script that runs the collocation software is 
+
+	MAINSCRIPT_for__Collocation.bash
+
+   located in
+
+	/Wind_Collocation/collocation_and_plotting/
+
+2. Open MAINSCRIPT* and select/enter the following criteria for your run:
+	- Time
+	- Paths (including path for output)
+		Note: 'archive_parent' should not be changed unless you are using this software on a computer other than S4.
+	- Datasets to collocate (including driver)
+	- Collocation criteria
+	- QC flags for all datasets
+	- AMV QI value (in %)
+	- AMV QI choice (QI without forecast, or with forecast)
+	- Max number of collocations per single DRIVER observation allowed (default=50)
+	- Max number of processors to use for parallelization (default=50)
+	- HPC account, partition, and runtime limit (only applies if you are using this software on S4)
+		'account': should be the account YOU use on S4
+		'partition': default=s4
+		'timelimit': for partition=s4, timelimit=6 hours
+	- Aeolus data type (for 2019, use B11 reprocessed (this is the 2nd Aeolus reprocessing campaign)
+
+3. Run MAINSCRIPT* by entering on the command line:
+
+	./MAINSCRIPT_for__Collocation.bash
+
+   This should initiate several slurm jobs through 'run_collocation_code.job', which calls the main python script that performs the 
+   collocation 'MAIN.match_driver_dependents.py' in the /src directory. At least one job is initiated for each center analysis time 
+   (00, 06, 12, or 18 UTC), so you will have at minimum 4 jobs in your queue for a single day (8 jobs if you are comparing with Aeolus).
+
+   The log files for each job start with 'OUT', followed by the hour and then the day of the month. For example:
+
+	OUT00_20 --> log file for the 20th of the month at 00 UTC (includes +/- 3 hours of data around 00 UTC)
+
+4. The index files will be found in your output path.
+
+-------------------------------------------------------------------------------------------
+- How to plot the data you just collocated 
+-------------------------------------------------------------------------------------------
+
+1. The main script that runs the plotting tools is
+
+        MAINSCRIPT_for__PlotChecks.bash
+
+   located in
+
+        /Wind_Collocation/collocation_and_plotting/
+
+2. Open MAINSCRIPT* and select/enter the following criteria for your run:
+	- Time
+	- Paths (including path for output)
+!!!		Note: 'archive_parent' should not be changed unless you are using this software on a computer other than S4.
+	- Suffix of index file to use for plotting (starts with .drv_*)
+	- Select choice to either Super-ob, Thin, or plot ALL matches.
+!!!		Note: A super-ob function has been added BUT NOT TESTED. See Note 2 below.
+	- HPC account, partition, and runtime limit (only applies if you are using this software on S4)
+                'account': should be the account YOU use on S4
+                'partition': default=s4
+                'timelimit': for partition=s4, timelimit=6 hours
+
+3. Run MAINSCRIPT* by entering on the command line:
+
+        ./MAINSCRIPT_for__PlotChecks.bash
+
+   This should initiate several slurm jobs through 'run_plotting_code.job', which calls the main python script that performs the
+   analysis and plotting 'PLOT_MAIN.collocation_checks.py' in the /src directory. At least one job is initiated for each center 
+   analysis time (00, 06, 12, or 18 UTC), so you will have at minimum 4 jobs in your queue for a single day (8 jobs if you are 
+   comparing with Aeolus).
+
+   The log files for each job start with 'OUTplot', followed by the hour and then the day of the month. For example:
+
+        OUTplot00_20 --> log file for the 20th of the month at 00 UTC (includes +/- 3 hours of data around 00 UTC)
+
+4. Several figures (.png and .gif formats) will be generated and can be found in your output path.
+
+-------------------------------------------------------------------------------------------
+- NOTES 
+-------------------------------------------------------------------------------------------
+
+1. QC is currently only available for Aeolus and AMVs. QC has not yet been added for Aircraft, Radiosonde, or Loon. 
+   That said, one could add these capabilities if one wishes to: 
+      1a. Add a function to the module 'quality_controls.py' in the /src directory. Follow the convention of creating the function 'read_amv_4th_int'.
+      1b. Call your new function in the QC code block for the corresponding function that reads the data, found in the module 'read_data.py'. Follow the 
+          convention under the if-statement 'if bool_qc' in the function 'read_amv_4th_int'.
+!!!       NOTE: Each dataset has TWO read functions: e.g., 'read_aircraft' and 'read_aircraft_for_plotting'. Your new QC function 
+                should only be called in 'read_aircraft', NOT 'read_aircraft_for_plotting'.
+      1c. Make sure the module 'read_data.py' imports your new function from 'quality_controls' (follow the convention of importing 
+          other functions from the python modules at the top of the script).
+
+2. Super-obbing capability has been added BUT NOT TESTED. Please consider testing the function before any analysis takes place.
+
+############################################################

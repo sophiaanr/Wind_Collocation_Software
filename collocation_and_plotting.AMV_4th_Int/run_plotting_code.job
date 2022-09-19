@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#SBATCH --requeue
+##This specifies that the job will be requeued after a node failure.
+#
+
+###################################################################
+# This script creates each plotting job. It is called in MAINSCRIPT_for__Plotting.bash
+###################################################################
+
+# !!!!! USER SHOULD NOT CHANGE ANYTHING BELOW !!!!!
+
+date	#start date/time
+
+cd ${INDIR}
+module load miniconda/3.8-s4
+
+#--------------------------------------------------------------
+# Run matching algorithm
+#	Command line inputs (after script name):
+#		1. Aeolus (driver) wind type: RayClear, MieCloud
+#               2. Date in YYYYMMDDHH
+#               3. Input directory for index files
+#               4. Input index file suffix
+#               5. Output directory
+#               6. Archive parent path: path where home archive directory is located
+#		7. Choice to super-ob, thin, or plot all matches
+
+python3 ${INDIR}${SCRIPT} ${ARG1} ${ARG2} ${ARG3} ${ARG4} ${ARG5} ${ARG6} ${ARG7}
+
+date	#end date/time
+

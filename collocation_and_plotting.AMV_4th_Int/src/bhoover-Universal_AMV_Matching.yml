@@ -1,0 +1,18 @@
+name: Wind_Matching
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3
+  - numpy
+  - pandas
+  - pynio
+  - matplotlib
+  - cartopy
+  - jupyter
+  - netCDF4
+  - scikit-learn
+  - dask
+  - geopy
+  - pip
+  - pip:
