@@ -676,7 +676,8 @@ del outname
                 #       lat = 90.0  --> North Pole
                 #       lat = 0.0   --> Equator
                 #       lat = -90.0 --> South Pole
-central_lon = 270.0
+#central_lon = 270.0
+central_lon = 285.0  # Centered at satellite subpoint (0, -75) rather than (0, -90)
 central_lat = 0.0
 
 map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat)
