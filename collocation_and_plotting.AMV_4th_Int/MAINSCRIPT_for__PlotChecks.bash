@@ -65,7 +65,8 @@ dir_home=/home/sreiner/Wind_Collocation_Software/collocation_and_plotting.AMV_4t
 echo 'WORKING DIRECTORY = '${dir_home}
 
 	# Set input path 'dir_in': This is where the collocation index files are located
-dir_in=/data/users/klukens/for_CIMSS/Wind_Collocation_Software/index_files/
+#dir_in=/data/users/klukens/for_CIMSS/Wind_Collocation_Software/index_files/
+dir_in=/data/users/daves/intercomparison2021/index_files/
 echo 'INPUT DIRECTORY = '${dir_in}
 
 	# Set index file suffix
