@@ -30,6 +30,7 @@
 
 import os
 import sys
+import csv
 import numpy as np #....................................................... Array module
 #import dask.array as da #.................................................. Dask module
 #from dask.distributed import Client, LocalCluster #........................ Dask client modules (LocalCluster == runs on a local machine)
@@ -190,6 +191,17 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
     texts = "stddev = "+str(np.round_(sd,decimals=2))
     ypos = ypos - diffpos/2
     plt.text(xpos, ypos, texts, fontsize = ftsz)
+   
+    # write output to csv text file 
+    if 'outname' and 'dfile_out' in kwargs:
+        rmse = np.sqrt( avg**2 + sd **2 )
+        outname = kwargs.get('outname')
+        dfile_out = kwargs.get('dfile_out')
+        row1 = f'{outname} {x_name} {nDuniq_list} {fill} {fill} {fill}'
+        row2 = f'{outname} {y_name} {np.size(y)} {avg:.2f} {sd:.2f} {rmse:.2f}'
+        rows = [row1.split(), row2.split()]
+        write_csv(rows=rows, dfile_out=dfile_out)
+    
     del diff,tcorr,corr,avg,sd,text,textr,textm,texts
  
       # plot title and axis labels    
@@ -305,13 +317,29 @@ def hist_diffs(Dlat,Dlon,tmatch,x_name,tname,alphaval,match_str,dcolors,units,**
 
  	# get counts per dependent dataset for legend labels
     legendlabel = np.nan * np.ones(np.size(tname), dtype=list)
+    rows = [] # rows to append to csv stats file
     for j in range(np.size(tname)):
       avg  = np.mean(tmatch[j])             # mean
       sd   = np.std(tmatch[j])              # standard deviation
       text = "mean = "+str(np.round_(avg,decimals=2))+" ... stddev = "+str(np.round_(sd,decimals=2))
       legendlabel[j] = tname[j]+" | count = "+str(np.size(tmatch[j]))+" ... "+text
-
-	# plot
+      
+      if 'outname' and 'dfile_out' in kwargs:
+        outname = kwargs.get('outname')
+        rmse = np.sqrt( avg**2 + sd **2 )
+        row = f'{outname} {tname[j]} {np.size(tmatch[j])} {avg:.2f} {sd:.2f} {rmse:.2f}'
+        rows.append(row.split())
+	
+    
+    # write output to csv text file 
+    if 'outname' and 'dfile_out' in kwargs:
+        outname = kwargs.get('outname')
+        dfile_out = kwargs.get('dfile_out')
+        row = f'{outname} {x_name} {nDuniq_list} {fill} {fill} {fill}'
+        rows.insert(0, row.split())
+        write_csv(rows=rows, dfile_out=dfile_out)
+	
+    # plot
     ax.hist(tmatch, bins, trange, color=dcolors[0:np.size(tname)], histtype='bar', rwidth=w, alpha=alphaval, label=legendlabel, orientation=hist_dir)
 
     	# plot labels
@@ -421,6 +449,7 @@ def map_locations_ce(Ds,ss,Dx,tx,Dy,ty,x_name,y_name,region_flag,marksize,imark,
 #      del x,y,tDx,tDy
 #    del idx,Dxall,Dlatlonlist,nDuniq_list,Dlegendlabel
 
+    rows = [] # rows of stats to be outputted in stats csv file
 	# plot DEPENDENT points
     for i in range(np.size(y_name)):
       tname = y_name[i]
@@ -433,10 +462,23 @@ def map_locations_ce(Ds,ss,Dx,tx,Dy,ty,x_name,y_name,region_flag,marksize,imark,
               # add obs counts to dataset name for legend
       legendlabel  = tname+", count = "+str(np.size(x)) #str(nuniq_list)
 
+      if 'outname' and 'dfile_out' in kwargs:
+        outname = kwargs.get('outname')
+        row = f'{outname} {tname} {np.size(x)} {fill} {fill} {fill}'
+        rows.append(row.split())
+
               # plot DEPENDENTS on map
       ax.scatter(x, y, c=dcolors[i], s=marksize, marker=imark[i], alpha=alphaval, label=legendlabel)
       del x,y,tDs,tss,legendlabel
-   
+    
+    # write output to csv text file 
+    if 'outname' and 'dfile_out' in kwargs:
+      outname = kwargs.get('outname')
+      dfile_out = kwargs.get('dfile_out')
+      row = f'{outname} {x_name} {nDuniq_list} {fill} {fill} {fill}'
+      rows.insert(0, row.split())
+      write_csv(rows=rows, dfile_out=dfile_out)
+ 
     plt.title("Locations of Collocated Obs for "+str(datein), fontsize=fonttitle)
 
 	# add legend to plot
@@ -530,7 +572,8 @@ def map_locations_ortho(Ds,ss,Dx,tx,Dy,ty,x_name,y_name,marksize,imark,alphaval,
         # plot DRIVER on map
     ax.scatter(Dlons, Dlats, c="black", s=marksize+5, marker="o", alpha=0.75, label=Dlegendlabel)
 
-	# plot DEPENDENT points
+    rows = [] # rows of stats to be outputted to stats csv file
+    # plot DEPENDENT points
     for i in range(np.size(y_name)):
       tname = y_name[i]
 
@@ -547,6 +590,12 @@ def map_locations_ortho(Ds,ss,Dx,tx,Dy,ty,x_name,y_name,marksize,imark,alphaval,
       del idx_x,idx_y
 			# add obs counts to dataset name for legend
       legendlabel  = tname+", count = "+str(np.size(x)) #str(nuniq_list)
+      
+      if 'outname' and 'dfile_out' in kwargs:
+        outname = kwargs.get('outname')
+        row = f'{outname} {tname} {np.size(x)} {fill} {fill} {fill}'
+        rows.append(row.split())
+
       del x,y
 
       ttx = points[:,0]
@@ -556,7 +605,15 @@ def map_locations_ortho(Ds,ss,Dx,tx,Dy,ty,x_name,y_name,marksize,imark,alphaval,
               # plot DEPENDENTS on map
       ax.scatter(x, y, c=dcolors[i], s=marksize, marker=imark[i], alpha=alphaval, label=legendlabel)
       del x,y,tDs,tss,ttx,tty,legendlabel #,nuniq_list,latlonlist
-   
+  
+    # write output to csv text file 
+    if 'outname' and 'dfile_out' in kwargs:
+      outname = kwargs.get('outname')
+      dfile_out = kwargs.get('dfile_out')
+      row = f'{outname} {x_name} {nDuniq_list} {fill} {fill} {fill}'
+      rows.insert(0, row.split())
+      write_csv(rows=rows, dfile_out=dfile_out)
+ 
     plt.title("Locations of Collocated Obs for "+str(datein), fontsize=fonttitle)
 
 	# add legend to plot
@@ -756,6 +813,15 @@ def map_3d_prof(ss,xx,yy,zz,x_name,tname,datein,sslabel,zzlabel,**kwargs):
     
     plt.title(tname+" "+sslabel+" for "+str(datein), fontsize=fonttitle)
     
+        # write output to csv text file 
+    if 'outname' and 'dfile_out' in kwargs:
+        outname = kwargs.get('outname')
+        dfile_out = kwargs.get('dfile_out')
+        row1 = f'{outname} {x_name} {nDuniq_list} {fill} {fill} {fill}'
+        row2 = f'{outname} {tname} {np.size(yy)} {fill} {fill} {fill}'
+        rows = [row1.split(), row2.split()]
+        write_csv(rows=rows, dfile_out=dfile_out)
+
     return fig
  
 # -------------------------------------------------------------------------
@@ -816,6 +882,7 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
     Dlatlonlist = []
     xstat = []
     ystat = []
+    rows = [] # rows of data to append to csv stats file
     for i in range(np.size(acolors)):
       txx = tx[i]
       tyy = ty[i]
@@ -859,6 +926,13 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
       texts = "stddev = "+str(np.round_(sd,decimals=2))
       ypos = ypos - diffpos/2
       plt.text(xpos, ypos, texts, fontsize = ftsz)
+      
+      if 'outname' and 'dfile_out' in kwargs:
+        outname = kwargs.get('outname')
+        rmse = np.sqrt( avg**2 + sd **2 )
+        row = f'{outname} {tname[i]} {np.size(x)} {avg:.2f} {sd:.2f} {rmse:.2f}'
+        rows.append(row.split())
+
       del diff,tcorr,corr,avg,sd,text,textr,textm,texts
 
 	    # legend label
@@ -875,6 +949,14 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
     Dlegendlabel = x_name+" count = "+str(nDuniq_list)
     ftsz = 10                                                   # font size of text
     plt.text(xpos, ypos-diffpos, Dlegendlabel, fontsize = ftsz)
+
+    # write output to csv text file 
+    if 'outname' and 'dfile_out' in kwargs:
+      outname = kwargs.get('outname')
+      dfile_out = kwargs.get('dfile_out')
+      row = f'{outname} {x_name} {nDuniq_list} {fill} {fill} {fill}'
+      rows.insert(0, row.split())
+      write_csv(rows=rows, dfile_out=dfile_out)
 
 	# plot labels
     plt.axhline(y=0,color="black")  	      # horizontal line
@@ -907,6 +989,11 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
     return fig
 
 
-
-    
+def write_csv(rows, dfile_out):
+    file_exists = os.path.isfile(dfile_out)
+    with open(dfile_out, 'a') as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(['plot_filename', 'dataset', 'N', 'mean_diff', 'std_diff', 'rmse'])
+        writer.writerows(rows)
 # -------------------------------------------------------------------------

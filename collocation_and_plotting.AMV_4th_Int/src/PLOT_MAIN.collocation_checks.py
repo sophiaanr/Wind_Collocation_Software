@@ -88,6 +88,7 @@ print("***** BEGIN MAIN PROGRAM *****")
 
 fill = -999.0
 
+dfile_out = 'collocation_stats.csv' # define file where stats from plotting are outputted
 #=============================================
 # Read raw user input from command line
 
@@ -565,11 +566,10 @@ del aDs,ass,aDx,axx,aDy,ayy,aa_tname,amcolors,ammarks
 	# Cylindrical Equidistant Map
 	
 marksize=15
-
-map_locations_ce(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,region_flag,marksize,mmarks,alphaval,mcolors,dateIN)
-
-		# plot filename
+                # plot filename
 outname = output_path+"MAP_CE.Match_Locations."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str+".png"
+map_locations_ce(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,region_flag,marksize,mmarks,alphaval,mcolors,dateIN, outname=outname, dfile_out=dfile_out)
+
 		# save plot
 plt.savefig(outname)
 
@@ -589,10 +589,10 @@ del outname
 central_lon = 0.0
 central_lat = 90.0
 
-map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat)
-
-		# plot filename
+ # plot filename
 outname = output_path+"MAP_Ortho.Match_Locations_NorthPole."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str+".png"
+map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat, outname=outname, dfile_out=dfile_out)
+
 		# save plot
 plt.savefig(outname)
 
@@ -607,10 +607,10 @@ del outname
 central_lon = 0.0
 central_lat = -90.0
 
-map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat)
-
-                # plot filename
+# plot filename
 outname = output_path+"MAP_Ortho.Match_Locations_SouthPole."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str+".png"
+map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat, outname=outname, dfile_out=dfile_out)
+
                 # save plot
 plt.savefig(outname)
 
@@ -680,10 +680,10 @@ del outname
 central_lon = 285.0  # Centered at satellite subpoint (0, -75) rather than (0, -90)
 central_lat = 0.0
 
-map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat)
-
-                # plot filename
+# plot filename
 outname = output_path+"MAP_Ortho.Match_Locations_WestHem."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str+".png"
+map_locations_ortho(Ds,ss,Dx,xx,Dy,yy,x_name,a_tname,marksize,mmarks,alphaval,mcolors,dateIN,central_lon,central_lat, outname=outname, dfile_out=dfile_out)
+
                 # save plot
 plt.savefig(outname)
 
@@ -828,15 +828,15 @@ for i in range(ndset):
 		# TIME
 match_str = "Time"
 units = "min"
-hist_diffs(latD, lonD, a_tmatch, x_name, a_tname, alphaval, match_str, a_tcolors, units)
 outname = output_path+"HIST.Match_Time_Diff."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str+".png"
+hist_diffs(latD, lonD, a_tmatch, x_name, a_tname, alphaval, match_str, a_tcolors, units, outname=outname, dfile_out=dfile_out)
 plt.savefig(outname)
 del outname,a_tmatch,units
 		# DISTANCE
 match_str = "Distance"
 units = "km"
-hist_diffs(latD, lonD, a_distmatch, x_name, a_tname, alphaval, match_str, a_distcolors, units)
 outname = output_path+"HIST.Match_Distance."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name)+avgthin_str+".png"
+hist_diffs(latD, lonD, a_distmatch, x_name, a_tname, alphaval, match_str, a_distcolors, units, outname=outname, dfile_out=dfile_out)
 plt.savefig(outname)
 del outname,a_distmatch,units
 		# VERTICAL
@@ -844,16 +844,16 @@ del outname,a_distmatch,units
 if np.size(a_pmatch)>0:
   match_str = "Pressure"
   units = "hPa"
-  hist_diffs(latD, lonD, a_pmatch, x_name, a_ptname, alphaval, match_str, a_pcolors, units)
   outname = output_path+"HIST.Match_Pressure_Diff."+str(dateIN)+".x_"+str(x_name)+".y"+str(py_name)+avgthin_str+".png"
+  hist_diffs(latD, lonD, a_pmatch, x_name, a_ptname, alphaval, match_str, a_pcolors, units, outname=outname, dfile_out=dfile_out)
   plt.savefig(outname)
   del outname,a_pmatch,units
 			# Height
 if np.size(a_zmatch)>0:
   match_str = "Height"
   units = "m"
-  hist_diffs(latD, lonD, a_zmatch, x_name, a_ztname, alphaval, match_str, a_zcolors, units)
   outname = output_path+"HIST.Match_Height_Diff."+str(dateIN)+".x_"+str(x_name)+".y"+str(zy_name)+avgthin_str+".png"
+  hist_diffs(latD, lonD, a_zmatch, x_name, a_ztname, alphaval, match_str, a_zcolors, units, outname=outname, dfile_out=dfile_out)
   plt.savefig(outname)
   del outname,a_zmatch,units
 
@@ -1079,8 +1079,8 @@ if shape_hlos[0]>0:
 		# plot
   match_str = "HLOS"
   units = "m/s"
-  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks)
   outname = output_path+"SCATTER.HLOS_Velocity."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name_hlos)+avgthin_str+".png"
+  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks, outname=outname, dfile_out=dfile_out)
   plt.savefig(outname)	
   del outname,units,Ds,ss,a_tname,mcolors,mmarks
   
@@ -1118,8 +1118,8 @@ if shape_wspd[0]>0:
 		# plot
   match_str = "Wind Speed"
   units = "m/s"
-  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks)
   outname = output_path+"SCATTER.WindSpeed."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name_wspd)+avgthin_str+".png"
+  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks, outname=outname, dfile_out=dfile_out)
   plt.savefig(outname)	
   del outname,units,Ds,ss,a_tname,mcolors,mmarks
   
@@ -1158,8 +1158,8 @@ if shape_pres[0]>0:
 		# plot
   match_str = "Pressure"
   units = "hPa"
-  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks)
   outname = output_path+"SCATTER.Pressure."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name_pres)+avgthin_str+".png"
+  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks, outname=outname, dfile_out=dfile_out)
   plt.savefig(outname)	
   del outname,units,Ds,ss,a_tname,mcolors,mmarks
   
@@ -1199,8 +1199,8 @@ if shape_hgt[0]>0:
 		# plot
   match_str = "Height"
   units = "km"
-  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks)
   outname = output_path+"SCATTER.Height."+str(dateIN)+".x_"+str(x_name)+".y"+str(y_name_hgt)+avgthin_str+".png"
+  scatter_matches(latD,lonD,Ds,ss,x_name,a_tname,marksize,alphaval,match_str,mcolors,units,mmarks, outname=outname, dfile_out=dfile_out)
   plt.savefig(outname)	
   del outname,units,Ds,ss,a_tname,mcolors,mmarks
   
@@ -1483,35 +1483,35 @@ for i in range(ndset):
     			# DEPENDENT DATASET
     tspd     = tyspd
     tmp_name = tname
-    map_3d_prof(tspd,txlon,txlat,txvert,x_name,tmp_name,dateIN,sslabel,zzlabel)
     outname = output_path+"MAP_3D.y_"+str(sslabelfile)+".colloc_with_DRV_"+str(x_name)+"."+str(dateIN)+"."+str(tmp_name)+avgthin_str+".png"
+    map_3d_prof(tspd,txlon,txlat,txvert,x_name,tmp_name,dateIN,sslabel,zzlabel, outname=outname, dfile_out=dfile_out)
     plt.savefig(outname)
     del outname
 
   	# plot density scatterplots
 		#WIND SPEED
     units = "m/s"
-    density_scatter(txlat,txlon,txspd, tyspd, x_name, tname, units)
-	# plot filename
+        # plot filename
     outname = output_path+"DENSITY_SCATTER.Wind."+str(dateIN)+".x_"+str(x_name)+".y_"+str(tname)+avgthin_str+".png"
+    density_scatter(txlat,txlon,txspd, tyspd, x_name, tname, units, outname=outname, dfile_out=dfile_out)
 	# save plot
     plt.savefig(outname)
     del outname
     		#PRESSURE
     if Vert_str=="Pressure":
       units = "hPa"
-      density_scatter(txlat,txlon,txp, typ, x_name, tname, units)
-	# plot filename
+        # plot filename
       outname = output_path+"DENSITY_SCATTER.Pressure."+str(dateIN)+".x_"+str(x_name)+".y_"+str(tname)+avgthin_str+".png"
+      density_scatter(txlat,txlon,txp, typ, x_name, tname, units, outname=outname, dfile_out=dfile_out)
 	# save plot
       plt.savefig(outname)
       del txp,typ,outname
     else:
     		#HEIGHT
       units = "km"
-      density_scatter(txlat,txlon,txz, tyz, x_name, tname, units)
-	# plot filename
+        # plot filename
       outname = output_path+"DENSITY_SCATTER.Height."+str(dateIN)+".x_"+str(x_name)+".y_"+str(tname)+avgthin_str+".png"
+      density_scatter(txlat,txlon,txz, tyz, x_name, tname, units, outname=outname, dfile_out=dfile_out)
 	# save plot
       plt.savefig(outname)
       del txz,tyz,outname
