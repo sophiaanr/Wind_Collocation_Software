@@ -847,7 +847,7 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
       label = "HLOS Wind Velocity"
       axismin = -100.0
       axismax = 100.0
-      diffpos = 5
+      diffpos = 10
     elif match_str=="Wind Speed":
       label = match_str
       axismin = 0.0
