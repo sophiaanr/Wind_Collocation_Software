@@ -134,9 +134,9 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
       label = "Pressure"
       axismin = 0.0
       axismax = 1000.0
-      txpos   = 995
+      txpos   = 950
       typos   = 50
-      diffpos = -25
+      diffpos = -50
     elif units=="km":
       label = "Height"
       axismin = 0.0
