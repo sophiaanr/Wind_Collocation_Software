@@ -45,6 +45,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.colors import Normalize 
 import matplotlib.ticker as mticker
+from matplotlib.offsetbox import AnchoredText
 
 from scipy.interpolate import interpn
 from scipy.stats import gaussian_kde
@@ -279,9 +280,11 @@ def hist_diffs(Dlat,Dlon,tmatch,x_name,tname,alphaval,match_str,dcolors,units,**
     if hist_dir == "vertical":
       xlabel = label+" ("+units+")"
       ylabel = "Number of Matched Pairs"
+      loc = 6
     elif hist_dir == "horizontal":
       ylabel = label+" ("+units+")"
       xlabel = "Number of Matched Pairs"
+      loc = 4
 
     trange = (histmin,histmax) 
     w      = 0.6			# width of bars
@@ -312,8 +315,10 @@ def hist_diffs(Dlat,Dlon,tmatch,x_name,tname,alphaval,match_str,dcolors,units,**
     		# add obs counts to dataset name for legend
     Dlegendlabel = x_name+" count = "+str(nDuniq_list)
     ftsz = 10                                                   # font size of text
-    t = plt.text(xpos, ypos, Dlegendlabel, fontsize = ftsz)
-    t.set_bbox(dict(facecolor='white', alpha=0.75)) #, edgecolor='red'))
+    #t = plt.text(xpos, ypos, Dlegendlabel, fontsize = ftsz)
+    #t.set_bbox(dict(facecolor='white', alpha=0.75)) #, edgecolor='red'))
+    anchored_text = AnchoredText(Dlegendlabel,loc=loc)
+    ax.add_artist(anchored_text)
 
  	# get counts per dependent dataset for legend labels
     legendlabel = np.nan * np.ones(np.size(tname), dtype=list)
@@ -361,7 +366,7 @@ def hist_diffs(Dlat,Dlon,tmatch,x_name,tname,alphaval,match_str,dcolors,units,**
     legendmarkersize = 30
     for lh in range(np.size(leg.legendHandles)):
       leg.legendHandles[lh]._sizes = [legendmarkersize]
-
+    
     return fig
 
 # -------------------------------------------------------------------------
