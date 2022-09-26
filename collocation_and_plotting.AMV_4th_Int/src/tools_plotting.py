@@ -119,18 +119,18 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
     if units=="m/s":
       if x_name.find('Aeolus') != -1 or y_name.find('Aeolus') != -1: 
         label = "HLOS Wind Velocity"
-        axismin = -100.0
-        axismax = 100.0
-        txpos	= -95
-        typos	= 95
-        diffpos = 10
+        axismin = -60.0
+        axismax = 60.0
+        txpos   = -54
+        typos   = 54
+        diffpos = 6
       else:
         label = "Wind Speed"
         axismin = 0.0
-        axismax = 100.0
-        txpos	= 5
-        typos	= 95
-        diffpos = 5
+        axismax = 75.0
+        txpos	= 3.75
+        typos   = 71.25
+        diffpos = 3.75
     elif units=="hPa":
       label = "Pressure"
       axismin = 0.0
@@ -850,9 +850,9 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
 	# scatter specs
     if match_str=="HLOS":
       label = "HLOS Wind Velocity"
-      axismin = -100.0
-      axismax = 100.0
-      diffpos = 10
+      axismin = -60.0
+      axismax = 60.0
+      diffpos = 6
     elif match_str=="Wind Speed":
       label = match_str
       axismin = 0.0
@@ -879,6 +879,9 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
     elif match_str=="Height":
       xpos = axismin+1
       ypos = axismax-1
+    elif match_str=="HLOS":
+      xpos = axismin+6
+      ypos = axismax-6
     else:
       xpos = axismin+10
       ypos = axismax-10
