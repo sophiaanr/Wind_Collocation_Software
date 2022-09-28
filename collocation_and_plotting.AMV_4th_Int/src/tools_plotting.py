@@ -155,8 +155,8 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
     cbar.ax.set_ylabel("Normalized Density of Points")
    
     # plot scatter and fill
-    ax.scatter(x, y, c=color_array, s=50)
-    
+    ax.scatter(y, x, c=color_array, s=50)    
+
     ax.axhline(y=0,color="black")	      # horizontal line
     ax.axvline(x=0,color="black")	      # vertical line
     ax.axline((0,0),slope=1.0,color="black")  # one-to-one line
@@ -184,12 +184,12 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
     plt.text(xpos, ypos, legendlabel, fontsize = ftsz)
         
 	# compute and print stats of differences
-    diff = y - x
+    diff = x - y
     tcorr = np.corrcoef(x,y)	 # correlation
     corr = tcorr[0,1]
     avg  = np.mean(diff)		  # mean
     sd   = np.std(diff) 		  # standard deviation
-    text = "Difference Stats ("+str(y_name)+"-"+str(x_name)+"):"
+    text = "Difference Stats (" + str(x_name) +"-"+str(y_name) +"):"
     ypos = ypos - diffpos
     plt.text(xpos, ypos, text, fontsize = ftsz)
     textr = "r = "+str(np.round_(corr,decimals=2))
@@ -215,10 +215,10 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
     del diff,tcorr,corr,avg,sd,text,textr,textm,texts
  
       # plot title and axis labels    
-    ax.set_title(label+" "+str(y_name)+" vs "+str(x_name), fontsize=fonttitle)
-    ax.set_xlabel(x_name+" ("+str(units)+")", fontsize=fontaxis)
-    ax.set_ylabel(y_name+" ("+str(units)+")", fontsize=fontaxis)
-   
+    ax.set_title(str(x_name) + " vs " + label + " " + str(y_name), fontsize=fonttitle)
+    ax.set_ylabel(x_name+" ("+str(units)+")", fontsize=fontaxis)
+    ax.set_xlabel(y_name+" ("+str(units)+")", fontsize=fontaxis)
+
     if units=="hPa":
       plt.gca().invert_xaxis()
       plt.gca().invert_yaxis()
@@ -926,12 +926,12 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
 
               # compute and print stats of differences
       ftsz = 8
-      diff = y - x
+      diff = x - y
       tcorr = np.corrcoef(x,y)	 # correlation
       corr = tcorr[0,1]
       avg  = np.mean(diff)		  # mean
       sd   = np.std(diff) 		  # standard deviation
-      text = "Difference Stats ("+str(tname[i])+"-"+str(x_name)+"):"
+      text = "Difference Stats ("+str(x_name)+"-"+str(tname[i])+"):"
       ypos = ypos - diffpos
       plt.text(xpos, ypos, text, fontsize = ftsz)
       textr = "r = "+str(np.round_(corr,decimals=2))
@@ -956,8 +956,8 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
       legendlabel = tname[i]+" | count = "+str(np.size(x))
 
           # plot scatter
-      plt.scatter(x, y, c=acolors[i], marker=imark[i], edgecolor="black", s=marksize, alpha=alphaval, label=legendlabel)
-
+      plt.scatter(y, x, c=acolors[i], marker=imark[i], edgecolor="black", s=marksize, alpha=alphaval, label=legendlabel)
+ 
       del x,y
 
 	# get unique number of DRIVER obs
@@ -980,9 +980,9 @@ def scatter_matches(Dlat,Dlon,tx,ty,x_name,tname,marksize,alphaval,match_str,aco
     plt.axvline(x=0,color="black")  	      # vertical line
     plt.axline((0,0),slope=1.0,color="black")     # one-to-one line
 
-    plt.title(label+" Scatterplot: DEPENDENTS vs DRIVER", fontsize=fonttitle)
-    plt.xlabel(x_name+" ("+units+")", fontsize=fontaxis)
-    plt.ylabel("DEPENDENT dataset(s)", fontsize=fontaxis)
+    plt.title(label+" Scatterplot: DRIVER vs DEPENDENT", fontsize=fonttitle)
+    plt.ylabel(x_name+" ("+units+")", fontsize=fontaxis)
+    plt.xlabel("DEPENDENT dataset(s)", fontsize=fontaxis)
 
     if match_str=="Pressure":
       plt.gca().invert_xaxis()
