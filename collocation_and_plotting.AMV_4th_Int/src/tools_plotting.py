@@ -103,19 +103,6 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
     x = tx
     y = ty
     
-    xy = np.vstack([x,y])
-    color_array = gaussian_kde(xy)(xy)
-    
-    idx = color_array.argsort()
-    x, y, color_array = x[idx], y[idx], color_array[idx]
-    
-    norm = Normalize(vmin = np.min(color_array), vmax = np.max(color_array))
-    cbar = fig.colorbar(cm.ScalarMappable(norm = norm), ax=ax)
-    cbar.ax.set_ylabel("Normalized Density of Points")
-
-      # plot scatter and fill
-    ax.scatter(x, y, c=color_array, s=50)
-
     if units=="m/s":
       if x_name.find('Aeolus') != -1 or y_name.find('Aeolus') != -1: 
         label = "HLOS Wind Velocity"
@@ -131,6 +118,14 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
         txpos	= 3.75
         typos   = 71.25
         diffpos = 3.75
+
+        # filtering data points above 75 m/s
+        x_idx = np.where(x > 100)
+        y_idx = np.where(y > 100)
+        xy_idxs = np.hstack([x_idx, y_idx])
+        i = np.unique(xy_idxs)
+        x = np.delete(x, i)
+        y = np.delete(y, i)
     elif units=="hPa":
       label = "Pressure"
       axismin = 0.0
@@ -145,8 +140,22 @@ def density_scatter(Dlat,Dlon,tx,ty,x_name,y_name,units,ax=None,sort=True,bins=2
       txpos   = 2
       typos   = 19
       diffpos = 1
+   
     ax.set_xlim([axismin,axismax])
     ax.set_ylim([axismin,axismax])
+    
+    xy = np.vstack([x,y])
+    color_array = gaussian_kde(xy)(xy)
+
+    idx = color_array.argsort()
+    x, y, color_array = x[idx], y[idx], color_array[idx]
+
+    norm = Normalize(vmin = np.min(color_array), vmax = np.max(color_array))
+    cbar = fig.colorbar(cm.ScalarMappable(norm = norm), ax=ax)
+    cbar.ax.set_ylabel("Normalized Density of Points")
+   
+    # plot scatter and fill
+    ax.scatter(x, y, c=color_array, s=50)
     
     ax.axhline(y=0,color="black")	      # horizontal line
     ax.axvline(x=0,color="black")	      # vertical line
