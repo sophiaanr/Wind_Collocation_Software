@@ -1306,6 +1306,21 @@ def read_amv_4th_int(path_prefix,yyyymmddhh,bool_qc,pct,dset_type_str,shortname)
     elif shortabbrv=='NWC':
       dset2_filename    = 'NWC_INTERCOMP2021_NWCSAFTEST31.Clear.nc'
       t_name = 'NWC_'+str(dset_type_str)
+    elif shortabbrv=='BRZ4':
+      dset2_filename    = 'BRZ_4th_AMVIC_INPE_Test_4_final.Clear.nc'
+      t_name = 'BRZ4_'+str(dset_type_str)
+    elif shortabbrv=='EUM4':
+      dset2_filename    = 'EUM_AMVIntm_Chan08_20191020113000Z_GOES_ASCII_Test41.Clear.nc'
+      t_name = 'EUM4_'+str(dset_type_str)
+    elif shortabbrv=='KMA4':
+      dset2_filename    = 'KMA_test41_goes16_abi_ch08_amv_201910201130.Clear.nc'
+      t_name = 'KMA4_'+str(dset_type_str)
+    elif shortabbrv=='NOA4':
+      dset2_filename    = 'NOA_ASCII_AMV-4thInt_TEST4.GOES16.2019293.1130.CH_08.FD.Clear.nc'
+      t_name = 'NOA4_'+str(dset_type_str)
+    elif shortabbrv=='NWC4':
+      dset2_filename    = 'NWC_INTERCOMP2021_NWCSAFTEST41.Clear.nc'
+      t_name = 'NWC4_'+str(dset_type_str)
 
   dset2_file   		= dset2_path+dset2_filename
 
@@ -1434,7 +1449,7 @@ def read_amv_4th_int_for_plotting(path_prefix,yyyymmddhh,bool_qc,pct,dset_type_s
   mm   = yyyymmddhh[4:6]
   dd   = yyyymmddhh[6:8]
 
-  shortabbrv = shortname[0:3]
+  shortabbrv = shortname[0:4]
   print("shortabbrev = "+shortabbrv)
 
 	#-------------------------------------------------
@@ -1448,40 +1463,55 @@ def read_amv_4th_int_for_plotting(path_prefix,yyyymmddhh,bool_qc,pct,dset_type_s
   dset2_path   		= path_prefix+tmp_dset2_path
 
   if dset_type_str == 'Cloud':
-    if shortabbrv=='BRZ':
+    if shortabbrv=='BRZ_':
       dset2_filename	= 'BRZ_4th_AMVIC_INPE_Test_2a_final.Cloud.nc'
       t_name = 'BRZ_'+str(dset_type_str)
-    elif shortabbrv=='EUM':
+    elif shortabbrv=='EUM_':
       dset2_filename	= 'EUM_AMVIntm_Chan14_20191020113000Z_GOES_ASCII_Test21.Cloud.nc'
       t_name = 'EUM_'+str(dset_type_str)
-    elif shortabbrv=='JMA':      
+    elif shortabbrv=='JMA_':      
       dset2_filename	= 'JMA_test21_1130.Cloud.nc'
       t_name = 'JMA_'+str(dset_type_str)
-    elif shortabbrv=='KMA':
+    elif shortabbrv=='KMA_':
       dset2_filename	= 'KMA_test21_goes16_abi_ch14_amv_201910201130.Cloud.nc'
       t_name = 'KMA_'+str(dset_type_str)
-    elif shortabbrv=='NOA':
+    elif shortabbrv=='NOA_':
       dset2_filename	= 'NOA_ASCII_AMV-4thInt_TEST2.GOES16.2019293.1130.CH_14.FD.Cloud.nc'
       t_name = 'NOA_'+str(dset_type_str)
-    elif shortabbrv=='NWC':
+    elif shortabbrv=='NWC_':
       dset2_filename	= 'NWC_INTERCOMP2021_NWCSAFTEST21.Cloud.nc'
       t_name = 'NWC_'+str(dset_type_str)
   elif dset_type_str == 'Clear':
-    if shortabbrv=='BRZ':
+    if shortabbrv=='BRZ_':
       dset2_filename	= 'BRZ_4th_AMVIC_INPE_Test_3_final.Clear.nc'
       t_name = 'BRZ_'+str(dset_type_str)
-    elif shortabbrv=='EUM':
+    elif shortabbrv=='EUM_':
       dset2_filename	= 'EUM_AMVIntm_Chan08_20191020113000Z_GOES_ASCII_Test31.Clear.nc'
       t_name = 'EUM_'+str(dset_type_str)
-    elif shortabbrv=='KMA':
+    elif shortabbrv=='KMA_':
       dset2_filename	= 'KMA_test31_goes16_abi_ch08_amv_201910201130.Clear.nc'
       t_name = 'KMA_'+str(dset_type_str)
-    elif shortabbrv=='NOA':
+    elif shortabbrv=='NOA_':
       dset2_filename	= 'NOA_ASCII_AMV-4thInt_TEST3.GOES16.2019293.1130.CH_08.FD.Clear.nc'
       t_name = 'NOA_'+str(dset_type_str)
-    elif shortabbrv=='NWC':
+    elif shortabbrv=='NWC_':
       dset2_filename	= 'NWC_INTERCOMP2021_NWCSAFTEST31.Clear.nc'
       t_name = 'NWC_'+str(dset_type_str)
+    elif shortabbrv=='BRZ4':
+      dset2_filename    = 'BRZ_4th_AMVIC_INPE_Test_4_final.Clear.nc'
+      t_name = 'BRZ4_'+str(dset_type_str)
+    elif shortabbrv=='EUM4':
+      dset2_filename    = 'EUM_AMVIntm_Chan08_20191020113000Z_GOES_ASCII_Test41.Clear.nc'
+      t_name = 'EUM4_'+str(dset_type_str)
+    elif shortabbrv=='KMA4':
+      dset2_filename    = 'KMA_test41_goes16_abi_ch08_amv_201910201130.Clear.nc'
+      t_name = 'KMA4_'+str(dset_type_str)
+    elif shortabbrv=='NOA4':
+      dset2_filename    = 'NOA_ASCII_AMV-4thInt_TEST4.GOES16.2019293.1130.CH_08.FD.Clear.nc'
+      t_name = 'NOA4_'+str(dset_type_str)
+    elif shortabbrv=='NWC4':
+      dset2_filename    = 'NWC_INTERCOMP2021_NWCSAFTEST41.Clear.nc'
+      t_name = 'NWC4_'+str(dset_type_str)
 
   dset2_file   		= dset2_path+dset2_filename
 

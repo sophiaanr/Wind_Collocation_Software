@@ -280,6 +280,8 @@ elif driver_name=='Aircraft':
   drv_lat,drv_lon,drv_yr,drv_mm,drv_dy,drv_hr,drv_mn,drv_hgt,drv_prs,indexesD,qc_drv_list,drv_src,drv_spd,drv_dir = read_aircraft_for_plotting(archive_parent,yyyymmddhh,bool_drv_qc)
 elif driver_name=='BRZ_'+amv4th_type_str or driver_name=='EUM_'+amv4th_type_str or driver_name=='JMA_'+amv4th_type_str or driver_name=='KMA_'+amv4th_type_str or driver_name=='NOA_'+amv4th_type_str or driver_name=='NWC_'+amv4th_type_str:
   drv_lat,drv_lon,drv_yr,drv_mm,drv_dy,drv_hr,drv_mn,drv_hgt,drv_prs,indexesD,qc_drv_list,drv_src,drv_spd,drv_dir = read_amv_4th_int_for_plotting(archive_parent,yyyymmddhh,bool_drv_qc,pct_drv,amv4th_type_str,driver_name)
+elif driver_name=='BRZ4_'+amv4th_type_str or driver_name=='EUM4_'+amv4th_type_str or driver_name=='JMA4_'+amv4th_type_str or driver_name=='KMA4_'+amv4th_type_str or driver_name=='NOA4_'+amv4th_type_str or driver_name=='NWC4_'+amv4th_type_str:
+  drv_lat,drv_lon,drv_yr,drv_mm,drv_dy,drv_hr,drv_mn,drv_hgt,drv_prs,indexesD,qc_drv_list,drv_src,drv_spd,drv_dir = read_amv_4th_int_for_plotting(archive_parent,yyyymmddhh,bool_drv_qc,pct_drv,amv4th_type_str,driver_name)
 elif driver_name=='AMV_NCEP':
   drv_lat,drv_lon,drv_yr,drv_mm,drv_dy,drv_hr,drv_mn,drv_hgt,drv_prs,indexesD,qc_drv_list,drv_src,drv_satname,drv_wcm,drv_ham,drv_spd,drv_dir = read_amv_ncep_for_plotting(archive_parent,yyyymmddhh,bool_drv_qc,pct_drv,qi_choice)
 elif driver_name=='Loon':
