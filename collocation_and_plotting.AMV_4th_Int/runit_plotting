@@ -15,3 +15,10 @@
 #./MAINSCRIPT_for__PlotChecks.bash .drv_NOA_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
 #./MAINSCRIPT_for__PlotChecks.bash .drv_NWC_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
 
+####### Clear AMVs Exp 4
+./MAINSCRIPT_for__PlotChecks.bash .drv_BRZ4_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+./MAINSCRIPT_for__PlotChecks.bash .drv_EUM4_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+./MAINSCRIPT_for__PlotChecks.bash .drv_KMA4_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+./MAINSCRIPT_for__PlotChecks.bash .drv_NOA4_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+./MAINSCRIPT_for__PlotChecks.bash .drv_NWC4_Clear__QC.dset1_Aeolus_RayClear_ReprocB11__QC.dset2_Aircraft__NoQC.dset3_Radiosonde__NoQC.nc4
+
